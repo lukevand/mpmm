@@ -1,0 +1,3 @@
+#!/bin/sh
+# Used in mpc-next-album and mpc-playlist
+mpc -f '%position% %album%' playlist | uniq --skip-fields=1

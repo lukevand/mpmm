@@ -1,0 +1,34 @@
+#!/bin/sh
+
+usage() {
+    cat <<EOF
+    playlist|play|p    - mpc-playlist
+    next-album|na|n    - mpc-next-album
+    random|rand|r num  - mpc-add-random-album.sh num
+    h                  - usage
+EOF
+}
+
+# Pass $2 to the other program
+
+case "$1" in
+    list|l)
+        mpc-playlist "${2:-1}"
+        ;;
+    next-album|na|n)
+        mpc-next-album next "${2:-1}"
+        ;;
+    p)
+        mpc-next-album previous "${2:-1}"
+        ;;
+    random|rand|r)
+        mpc-add-random-album.sh "${2:-1}"
+        ;;
+    h)
+        usage
+        ;;
+    *)
+        printf 'What is "%s"\n' "$1"
+        usage
+        ;;
+esac

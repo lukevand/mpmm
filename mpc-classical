@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mpc ls classical | shuf -n "${1:-1}" | while read -r album; do
+	mpc add "$album" && printf 'Added "%s" to playlist\n' "$album"
+done
+
