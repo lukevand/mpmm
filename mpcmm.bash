@@ -5,7 +5,7 @@ forward_5='i'
 forward_60='y'
 backward_5='n'
 backward_60='l'
-status='o'
+mpc_status='o'
 next='.'
 prev=','
 
@@ -25,7 +25,7 @@ while read -n1 -r cmd; do
         $backward_60)
             mpc -q seek -60
             ;;
-        $status)
+        $mpc_status)
             printf '\n'
             mpc status
             ;;

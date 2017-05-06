@@ -97,7 +97,7 @@ case "$1" in
         mpc_next_album next "${2:-1}"
         ;;
     p)
-        mpc-next-album previous "${2:-1}"
+        mpc_next_album previous "${2:-1}"
         ;;
     random|rand|r)
         mpc-add-random-album.sh "${2:-1}"
