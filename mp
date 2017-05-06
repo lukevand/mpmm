@@ -39,10 +39,12 @@ play_track()
     fi
 }
 
+
 at_end()
 {
     mpc_albums | "$head_tail" -n1 | grep -F -- "$current" >/dev/null
 }
+
 
 next_album()
 {
@@ -76,7 +78,7 @@ mpc_next_album() {
     esac
 
     if at_end >/dev/null; then
-        printf 'Back to the start...\n'
+        printf 'Back to the start...\n\n'
         mpc "$extra_opts" play 1
     else
         next_album
