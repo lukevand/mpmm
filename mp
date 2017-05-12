@@ -1,35 +1,42 @@
 #!/bin/sh
 
+music_directory="/sov/Music"
+
 usage() {
     cat <<EOF
-    playlist|play|p    - mpc-playlist
-    next-album|na|n    - mpc-next-album
-    random|rand|r num  - mpc-add-random-album.sh num
-    h                  - usage
+$0 opt, where opt is
+    l - prints playlist
+    la - printts album playlist
+    n - next album
+    p - previous album
+    r - mpc-add-random-album.sh num
+    f - current song location
+    i - current song info
+    h - usage
 EOF
 }
+
 
 mpc_albums() {
     mpc -f '%position% %album%' playlist | uniq --skip-fields=1
 }
 
-mpc_playlist() {
-    case "$1" in
-        a)
-            mpc_albums | grep --color=auto --fixed-strings \
-                              --context "${2:-10}" -- "$(mpc --format '%album%')$"
-            ;;
-        *)
-            mpc playlist | grep --line-number --color=auto --fixed-strings \
-                                --line-regexp --context "${2:-10}" -- "$(mpc current)"
-            ;;
-    esac
+
+mpc_playlist_album() {
+    mpc_albums | grep --color=auto -F  --context "${1:-10}" \
+                      -- "$(mpc --format '%album%')$"
 }
 
-# {{{ mpc-next-album
 
-play_track()
-{
+mpc_playlist() {
+    mpc playlist | grep --line-number --color=auto -F       \
+                        --line-regexp --context "${1:-10}"  \
+                        -- "$(mpc current)"
+}
+
+
+play_track() {
+    local track
     track="$1"
     if [ "$track" ]; then
         mpc "$extra_opts" play "$track"
@@ -40,14 +47,16 @@ play_track()
 }
 
 
-at_end()
-{
+at_end() {
+    local head_tail current
+    head_tail="$1"
+    current="$2"
     mpc_albums | "$head_tail" -n1 | grep -F -- "$current" >/dev/null
 }
 
 
-next_album()
-{
+next_album() {
+    local track
     track=$(mpc_albums | grep -F "$grep_context" -- "$current" | \
                 "$head_tail" -n1 | cut -d' ' -f1)
     play_track "$track"
@@ -55,12 +64,14 @@ next_album()
 
 
 mpc_next_album() {
+    local skip_num extra_opts
+    local grep_context head_tail
     skip_num="${2:-1}"
     extra_opts="${3:--v}"
 
     # If $skip_num doesn't match the pattern [0-9]*
     if ! expr "$skip_num" : '[0-9]*' >/dev/null; then
-        printf '%s is not a number\n' "$skip_num"
+        echo "Usage: $0 (n|next-album) [previous|next] [num_to_skip] [extra_mpc_opt]"
         exit 1
     fi
 
@@ -77,7 +88,7 @@ mpc_next_album() {
             ;;
     esac
 
-    if at_end >/dev/null; then
+    if at_end "$head_tail" "$current" >/dev/null; then
         printf 'Back to the start...\n\n'
         mpc "$extra_opts" play 1
     else
@@ -85,30 +96,52 @@ mpc_next_album() {
     fi
 }
 
-# }}} mpc-next-album
 
-# Pass $2 to the other function
-case "$1" in
+current_song() {
+    printf "%s/%s\n" "$music_directory" "$(mpc -f '%file%' current)"
+}
+
+
+song_info() {
+    file -b "$(current_song)"
+}
+
+
+arg="$1"
+if [ -z "$arg" ]; then
+    usage
+    exit 1
+fi
+
+shift
+
+case "$arg" in
     list|l)
-        mpc_playlist "${2:-1}"
+        mpc_playlist "$@"
         ;;
     la)
-        mpc_playlist a
+        mpc_playlist_album "$@"
         ;;
     next-album|na|n)
-        mpc_next_album next "${2:-1}"
+        mpc_next_album next "$@"
         ;;
     p)
-        mpc_next_album previous "${2:-1}"
+        mpc_next_album previous "$@"
         ;;
     random|rand|r)
-        mpc-add-random-album.sh "${2:-1}"
+        mpc-add-random-album.sh "$@"
+        ;;
+    f)
+        current_song
+        ;;
+    i)
+        song_info
         ;;
     h)
         usage
         ;;
     *)
-        printf '? "%s"\n' "$1"
+        printf '? "%s"\n' "$@"
         usage
         ;;
 esac
