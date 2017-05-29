@@ -36,7 +36,6 @@ mpc_playlist() {
 
 
 play_track() {
-    local track
     track="$1"
     if [ "$track" ]; then
         mpc "$extra_opts" play "$track"
@@ -48,7 +47,6 @@ play_track() {
 
 
 at_end() {
-    local head_tail current
     head_tail="$1"
     current="$2"
     mpc_albums | "$head_tail" -n1 | grep -F -- "$current" >/dev/null
@@ -56,7 +54,6 @@ at_end() {
 
 
 next_album() {
-    local track
     track=$(mpc_albums | grep -F "$grep_context" -- "$current" | \
                 "$head_tail" -n1 | cut -d' ' -f1)
     play_track "$track"
@@ -64,14 +61,12 @@ next_album() {
 
 
 mpc_next_album() {
-    local skip_num extra_opts
-    local grep_context head_tail
     skip_num="${2:-1}"
     extra_opts="${3:--v}"
 
     # If $skip_num doesn't match the pattern [0-9]*
     if ! expr "$skip_num" : '[0-9]*' >/dev/null; then
-        echo "Usage: $0 (n|next-album) [previous|next] [num_to_skip] [extra_mpc_opt]"
+        printf 'Usage: %s (n|next-album) [previous|next] [num_to_skip] [extra_mpc_opt]\n' "$0"
         exit 1
     fi
 
@@ -98,19 +93,24 @@ mpc_next_album() {
 
 
 current_song() {
-    printf "%s/%s\n" "$music_directory" "$(mpc -f '%file%' current)"
+    printf '%s/%s\n' "$music_directory" "$(mpc -f '%file%' current)"
 }
 
 
 song_info() {
-    file -b "$(current_song)"
+    current="$(current_song)"
+    if which mediainfo >/dev/null; then
+        mediainfo "$current"
+    else
+        file -b "$current"
+    fi
 }
 
 
 arg="$1"
 if [ -z "$arg" ]; then
-    usage
-    exit 1
+    mpc
+    exit 0
 fi
 
 shift

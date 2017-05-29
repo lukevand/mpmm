@@ -4,7 +4,7 @@ music_directory="/sov/Music"
 todel=$(mpc -f '%file%' current)
 
 case "$1" in
-    s)
+    s|song)
         printf "adding current song\n"
         skip="mpc next"
         ;;
