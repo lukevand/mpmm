@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mpc playlist | grep --line-number --color=auto -F       \
+                    --line-regexp --context "${1:-10}"  \
+                    -- "$(mpc current)"

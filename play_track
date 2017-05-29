@@ -1,0 +1,10 @@
+#!/bin/sh
+
+track="$1"
+
+if [ "$track" ]; then
+    mpc play "$track"
+else
+    printf '%s failed, track is empty\n' "$0" 2>&1
+    exit 1
+fi

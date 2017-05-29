@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mpc_albums | grep --color=auto -F  --context "${1:-10}" \
+                  -- "$(mpc --format '%album%')$"
+

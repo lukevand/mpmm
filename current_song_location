@@ -1,0 +1,5 @@
+#!/bin/sh
+
+music_directory="${music_directory:-/sov/Music}"
+printf '%s/%s\n' "$music_directory" "$(mpc -f '%file%' current)"
+
