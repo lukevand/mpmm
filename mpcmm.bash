@@ -18,6 +18,7 @@ backward_60='l'
 mpc_status='o'
 next='.'
 prev=','
+toggle='p'
 
 
 # -n1 is a bash extension.
@@ -48,11 +49,13 @@ while read -n1 -r cmd; do
             printf '\n'
             mpc prev
             ;;
+        $toggle)
+            printf '\n'
+            mpc toggle
+            ;;
         q)
             printf '\n'
             exit
             ;;
     esac
 done
-
-

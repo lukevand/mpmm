@@ -1,6 +1,0 @@
-#!/bin/sh
-
-head_tail="$1"
-current="$2"
-mpc_albums | "$head_tail" -n1 | grep -F -- "$current" >/dev/null
-

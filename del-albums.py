@@ -10,8 +10,6 @@ songs = []
 
 
 def my_pp(t):
-    """pprint
-    t: list"""
     for line in t:
         print(line)
     print()
