@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export music_directory="/sov/Music"
-this_dir="/home/sov/bin/mp--"
+this_dir="$(dirname "$(readlink -f "$0")")"
 
 PATH="$PATH:$this_dir"
 
