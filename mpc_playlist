@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# mpc playlist | grep --line-number --color=auto -F       \
-    #                     --line-regexp --context "${1:-10}"  \
-    #                     -- "$(mpc current)"
+context="$1"
 
 current_postion=$(mpc -f '%position%' current)
 mpc -f '%position% %artist% - %title%' playlist | \
-    grep --context "${1:-10}" -- "^${current_postion} " | \
-    sed "s/${current_postion}/    /g"
+    grep --color --context "${context:-10}" -- "^${current_postion} .*"
+

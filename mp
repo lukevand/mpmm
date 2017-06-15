@@ -8,14 +8,14 @@ PATH="$PATH:$this_dir"
 usage() {
     cat <<EOF
 $0 opt, where opt is
-    l - prints playlist
-    la - printts album playlist
-    n - next album
-    p - previous album
-    r - mpc-add-random-album.sh num
-    f - current song location
-    i - current song info
-    h - usage
+    l|list         - prints playlist
+    la             - printts album playlist
+    nextalbum|na|n - next album
+    previous|p     - previous album
+    random|rand|r  - mpc-add-random-album.sh num
+    location|f     - current song location
+    info|i         - current song info
+    h              - usage
 EOF
 }
 
@@ -34,7 +34,7 @@ case "$arg" in
     la)
         mpc_playlist_album "$@"
         ;;
-    next-album|na|n)
+    nextalbum|na|n)
         mpc_next_album next "$@"
         ;;
     p|previous)
@@ -53,7 +53,7 @@ case "$arg" in
         usage
         ;;
     *)
-        printf '? "%s"\n' "$@"
+        printf '? "%s"\n' "$arg" "$@"
         usage
         ;;
 esac
