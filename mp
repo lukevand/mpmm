@@ -34,7 +34,7 @@ case "$arg" in
     la)
         mpc_playlist_album "$@"
         ;;
-    nextalbum|na|n)
+    n|next)
         mpc_next_album next "$@"
         ;;
     p|previous)
