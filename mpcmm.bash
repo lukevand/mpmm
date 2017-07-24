@@ -24,6 +24,7 @@ toggle='p'
 # -n1 is a bash extension.
 # It reads one character in and doesn't wait for enter.
 while read -n1 -r cmd; do
+    printf \\n
     case "$cmd" in
         $forward_5)
             mpc -q seek +5
@@ -38,23 +39,18 @@ while read -n1 -r cmd; do
             mpc -q seek -60
             ;;
         $mpc_status)
-            printf '\n'
             mpc status
             ;;
         $next)
-            printf '\n'
             mpc next
             ;;
         $prev)
-            printf '\n'
             mpc prev
             ;;
         $toggle)
-            printf '\n'
             mpc toggle
             ;;
         q)
-            printf '\n'
             exit
             ;;
     esac
