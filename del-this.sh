@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# If I don't like what I'm listening to, add it to a list to delete later
+
 music_directory="/sov/Music"
 todel=$(mpc -f '%file%' current)
 
