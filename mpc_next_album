@@ -16,27 +16,21 @@ play_next_album() {
     current="$2"
     head_tail="$3"
 
-    track=$(mpc_albums | grep -F "$grep_context" -- "$current" | \
+    track=$(mpc_albums | grep "$grep_context" -F -w -- "${current}" | \
                 "$head_tail" -n1 | cut -d' ' -f1)
     play_track "$track"
 }
 
 
-# If $skip_num doesn't match the pattern [0-9]*
-if ! expr "$skip_num" : '[0-9]*' >/dev/null; then
-    printf 'Usage: %s (n|next-album) [previous|next] [num_to_skip] [extra_mpc_opt]\n' "$0"
-    exit 1
-fi
-
 current=$(mpc -f '%album%' current)
 
 case "$1" in
     p|prev|previous|0)
-        grep_context="-B${skip_num}"
+        grep_context="-B ${skip_num}"
         head_tail='head'
         ;;
     *)
-        grep_context="-A${skip_num}"
+        grep_context="-A ${skip_num}"
         head_tail='tail'
         ;;
 esac
@@ -45,6 +39,8 @@ if at_end "$head_tail" "$current" >/dev/null; then
     printf 'Back to the start...\n\n'
     mpc "$extra_opts" play 1
 else
+    # Log what albums are skipped
+    mpc -f '%file%' current >> ~/.skipped_music
     play_next_album "$grep_context" "$current" "$head_tail"
 fi
 

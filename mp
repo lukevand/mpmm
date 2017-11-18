@@ -1,7 +1,8 @@
 #!/bin/sh
 
-export music_directory="/sov/Music"
-this_dir="$(dirname "$(readlink -f "$0")")"
+export POSIXLY_CORRECT
+export music_directory="/home/cos/mnt/sov/music"
+this_dir=$(dirname "$(readlink -f "$0")")
 
 PATH="$PATH:$this_dir"
 

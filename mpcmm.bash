@@ -16,13 +16,15 @@ forward_60='y'
 backward_5='n'
 backward_60='l'
 mpc_status='o'
+mpc_album_status='O'
 next='.'
 prev=','
+album_next='>'
+album_prev='<'
 toggle='p'
 
 
 # -n1 is a bash extension.
-# It reads one character in and doesn't wait for enter.
 while read -n1 -r cmd; do
     printf \\n
     case "$cmd" in
@@ -41,6 +43,9 @@ while read -n1 -r cmd; do
         $mpc_status)
             mpc status
             ;;
+        $mpc_album_status)
+            mp l
+            ;;
         $next)
             mpc next
             ;;
@@ -49,6 +54,12 @@ while read -n1 -r cmd; do
             ;;
         $toggle)
             mpc toggle
+            ;;
+        $album_prev)
+            mp p
+            ;;
+        $album_next)
+            mp n
             ;;
         q)
             exit

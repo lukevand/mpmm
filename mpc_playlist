@@ -3,6 +3,6 @@
 context="$1"
 
 current_postion=$(mpc -f '%position%' current)
-mpc -f '%position% %artist% - %title%' playlist | \
-    grep --color --context "${context:-10}" -- "^${current_postion} .*"
+mpc -f '%position% [[%artist% - %title%]|[%file%]]' playlist | \
+    grep --color -C "${context:-10}" -- "^${current_postion} .*"
 

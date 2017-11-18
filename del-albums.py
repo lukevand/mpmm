@@ -21,17 +21,18 @@ def del_album_song(thing):
     elif os.path.isfile(thing):
         os.remove(thing)
     else:
-        print("Don't know what {} is".format(thing))
+        print("DNE {}".format(thing))
 
 
 def del_music(t):
     for sub in t:
-        re = input("Do you want to delete {}? ".format(sub))
+        re = input("Do you want to delete {}? [yn]".format(sub))
         if re == "y":
-            print("Deleting", sub)
+            print("DEL", sub)
             del_album_song(sub)
         else:
-            print("Skipping", sub)
+            print("SKIP", sub)
+        print()
 
 
 if not os.path.isfile(todel_file):
@@ -45,8 +46,7 @@ with open(todel_file, 'r') as f:
             albums.append(stripped)
         elif os.path.isfile(stripped):
             songs.append(stripped)
-        else:
-            continue
+
 
 for song in songs:
     album = os.path.dirname(song)

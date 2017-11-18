@@ -1,4 +1,4 @@
 #!/bin/sh
 
-mpc -f '%position% %album%' playlist | uniq --skip-fields=1
+mpc -f '%position% %album%' playlist | uniq -f 1
 
