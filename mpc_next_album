@@ -40,7 +40,7 @@ if at_end "$head_tail" "$current" >/dev/null; then
     mpc "$extra_opts" play 1
 else
     # Log what albums are skipped
-    mpc -f '%file%' current >> ~/.skipped_music
+    dirname "$(mpc -f '%file%' current)" >> "$mpmm_data"/skipped_albums
     play_next_album "$grep_context" "$current" "$head_tail"
 fi
 

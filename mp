@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export POSIXLY_CORRECT
-export music_directory="/home/cos/mnt/sov/music"
+export music_directory="${HOME}/mnt/sov/music"
+export mpmm_data="${HOME}/mpmm"
 this_dir=$(dirname "$(readlink -f "$0")")
 
 PATH="$PATH:$this_dir"
