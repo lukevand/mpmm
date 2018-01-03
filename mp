@@ -20,15 +20,14 @@ $0 opt, where opt is
 EOF
 }
 
-arg="$1"
-if [ -z "$arg" ]; then
+if [ -z "$1" ]; then
     mpc
     exit 0
 fi
 
 shift
 
-case "$arg" in
+case "$1" in
     list|l)
         mpc_playlist "$@"
         ;;
@@ -54,7 +53,7 @@ case "$arg" in
         usage
         ;;
     *)
-        printf '? "%s"\n' "$arg" "$@"
+        printf '? "%s"\n' "$1" "$@"
         usage
         ;;
 esac

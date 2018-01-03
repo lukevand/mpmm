@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This doesn't work in a lot of cases.
+
 skip_num="${2:-1}"
 extra_opts="${3:--v}"
 

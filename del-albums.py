@@ -26,7 +26,7 @@ def del_album_song(thing):
 
 def del_music(t):
     for sub in t:
-        re = input("Do you want to delete {}? [yn]".format(sub))
+        re = input("Delete {}? [yn] ".format(sub))
         if re == "y":
             print("DEL", sub)
             del_album_song(sub)
