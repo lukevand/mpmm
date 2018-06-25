@@ -1,15 +1,5 @@
-* Requires
-sh
-GNU coreutils
-mpc
-* Usage
-[[file:mp::case%20"$arg"%20in][See this]]
-* Other
-You should also get mpc-add-random-album.sh from
-https://github.com/Q3CPMA/shell-scripts.git
-* LICENSE
 mpmm
-Copyright (C) 2017  zerror
+Copyright (C) 2017  sekyrow
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
