@@ -1,11 +1,6 @@
 #!/bin/sh
 
-# if [ ! -n "$1" ]; then
-#     echo "Usage: mppush [number]"
-#     exit 1
-# fi
-
-pos="$TMP"/old_mpd_position
+pos=/tmp/old_mpd_position
 if [ -f "$pos" ]; then
     track=$(cat "$pos")
     mpc play "$track"
