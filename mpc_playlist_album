@@ -1,5 +1,6 @@
 #!/bin/sh
 
-mpc_albums | grep --color=auto -C "${1:-10}" \
-                  -- "$(mpc --format '%album%' current)$"
+mpc -f '%position% %artist% - %album%' playlist | uniq -f 1 | \
+    grep --color=auto -C "${1:-10}" \
+                  -- "$(mpc --format '%artist% - %album%' current)$"
 

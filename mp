@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export music_directory="${HOME}/mnt/sov/music"
+export music_directory="${HOME}/Music"
 export mpmm_data="${HOME}/mpmm"
 this_dir=$(dirname "$(readlink -f "$0")")
 
