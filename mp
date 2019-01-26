@@ -17,6 +17,7 @@ $0 opt, where opt is
     location|f     - current song location
     info|i         - current song info
     h              - usage
+    insert|s       - insert-song with dmenu
 EOF
 }
 
@@ -52,6 +53,9 @@ case "$arg" in
         ;;
     h|help|usage)
         usage
+        ;;
+    insert|s)
+        insert-song.sh
         ;;
     *)
         printf '? "%s"\n' "$arg" "$@"
