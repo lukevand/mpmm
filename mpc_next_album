@@ -1,4 +1,5 @@
 #!/bin/sh
+set -fue
 
 skip_num="${2:-1}"
 extra_opts="${3:--v}"
@@ -42,5 +43,6 @@ else
     # Log what albums are skipped
     # dirname "$(mpc -f '%file%' current)" >> "$mpmm_data"/skipped_albums
     play_next_album "$grep_context" "$current" "$head_tail"
+    ~/bin/get-status song
 fi
 

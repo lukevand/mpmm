@@ -1,9 +1,8 @@
 #!/bin/sh
 
-# If I don't like what I'm listening to, add it to a list to delete later
+# 
 
-. ~/.mystuff
-music_directory="$MUSIC_DIR"
+music_directory=$(awk '/music_directory/ { gsub(/"/, ""); print $2 }' ~/.config/mpd/mpd.conf)
 todel=$(mpc -f '%file%' current)
 
 case "$1" in

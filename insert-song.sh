@@ -1,8 +1,4 @@
 #!/bin/sh
 
-song=$(mpc listall | dmenu -i -l 20)
-if [ "$song" ]; then
-    echo "$song" | while read -r song; do
-        mpc --verbose insert "$song"
-    done
-fi
+mpc listall | dmenu -i -l 40 | xargs -d'\n' -r -I% mpc -q insert % && notify-send -u low "Next:" "$(mpc queued)"
+# mpc listall | fzf --reverse --select-1 | xargs -r -I% mpc -q insert % && notify-send -u low "Next:" "$(mpc queued)"

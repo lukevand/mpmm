@@ -1,6 +1,7 @@
 #!/bin/sh
+set -euf
 
-export music_directory="${HOME}/Music"
+export music_directory="${HOME}/music"
 export mpmm_data="${HOME}/mpmm"
 this_dir=$(dirname "$(readlink -f "$0")")
 
@@ -21,7 +22,7 @@ $0 opt, where opt is
 EOF
 }
 
-arg="$1"
+arg="${1:-}"
 if [ -z "$arg" ]; then
     mpc
     exit 0

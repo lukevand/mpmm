@@ -15,13 +15,13 @@ def pprint(t):
     print()
 
 
-def del_album_song(thing):
-    if os.path.isdir(thing):
-        shutil.rmtree(thing)
-    elif os.path.isfile(thing):
-        os.remove(thing)
+def del_album_song(todel):
+    if os.path.isdir(todel):
+        shutil.rmtree(todel)
+    elif os.path.isfile(todel):
+        os.remove(todel)
     else:
-        print("DNE {}".format(thing))
+        print("DNE {}".format(todel))
 
 
 def del_music(t):
