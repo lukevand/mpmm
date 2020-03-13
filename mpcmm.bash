@@ -38,7 +38,6 @@ else
 fi
 
 
-# -n1 is a bash extension.
 while read -n1 -r cmd; do
     printf \\n
     case "$cmd" in
