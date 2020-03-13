@@ -4,9 +4,14 @@ Media Player Client Client. Wrapper for mpc for use when using mpd. Can play the
 
 ## Howto
 
-Plays the next album,
+Plays the next album in playlist,
 ```
 mp n
+```
+
+Plays previous album,
+```
+mp p
 ```
 
 ### Prerequisites
