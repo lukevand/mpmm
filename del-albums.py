@@ -41,12 +41,11 @@ if not os.path.isfile(todel_file):
 
 with open(todel_file, 'r') as f:
     for line in f:
-        stripped = line.strip()
+        stripped = os.path.expanduser(line.strip())
         if os.path.isdir(stripped):
             albums.append(stripped)
         elif os.path.isfile(stripped):
             songs.append(stripped)
-
 
 for song in songs:
     album = os.path.dirname(song)
