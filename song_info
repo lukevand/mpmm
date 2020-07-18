@@ -1,9 +1,0 @@
-#!/bin/sh
-
-current="$(current_song_location)"
-if command -v mediainfo >/dev/null; then
-    mediainfo "$current"
-else
-    file -b "$current"
-fi
-

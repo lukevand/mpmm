@@ -22,6 +22,20 @@ $0 opt, where opt is
 EOF
 }
 
+current_song_location() {
+    printf '%s/%s\n' "$music_directory" "$(mpc -f '%file%' current)"
+}
+
+song_info() {
+    current="$(current_song_location)"
+    if command -v mediainfo >/dev/null; then
+        mediainfo "$current"
+    else
+        file -b "$current"
+    fi
+}
+
+
 arg="${1:-}"
 if [ -z "$arg" ]; then
     mpc
@@ -54,9 +68,6 @@ case "$arg" in
         ;;
     h|help|usage)
         usage
-        ;;
-    insert|s)
-        insert-song.sh
         ;;
     *)
         printf '? "%s"\n' "$arg" "$@"

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# 
-
 music_directory=$(awk '/music_directory/ { gsub(/"/, ""); print $2 }' ~/.config/mpd/mpd.conf)
 todel=$(mpc -f '%file%' current)
 
